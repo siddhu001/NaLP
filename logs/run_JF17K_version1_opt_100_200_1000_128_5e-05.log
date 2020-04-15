@@ -1,0 +1,87 @@
+[2020-04-10 23:50:08,322] 35 
+Parameters:
+[2020-04-10 23:50:08,324] 37 ALLOW_SOFT_PLACEMENT=<absl.flags._flag.BooleanFlag object at 0x126acb3c8>
+[2020-04-10 23:50:08,324] 37 BATCH_SIZE=<absl.flags._flag.Flag object at 0x126ab8f60>
+[2020-04-10 23:50:08,324] 37 DATA_DIR=<absl.flags._flag.Flag object at 0x10e131048>
+[2020-04-10 23:50:08,324] 37 DATASET_NAME=<absl.flags._flag.Flag object at 0x126ab8be0>
+[2020-04-10 23:50:08,324] 37 EMBEDDING_DIM=<absl.flags._flag.Flag object at 0x126ab8d68>
+[2020-04-10 23:50:08,325] 37 IF_RESTART=<absl.flags._flag.BooleanFlag object at 0x126acb208>
+[2020-04-10 23:50:08,325] 37 IS_TRAINABLE=<absl.flags._flag.BooleanFlag object at 0x126ab8f98>
+[2020-04-10 23:50:08,325] 37 LEARNING_RATE=<absl.flags._flag.Flag object at 0x126acb128>
+[2020-04-10 23:50:08,325] 37 LOG_DEVICE_PLACEMENT=<absl.flags._flag.BooleanFlag object at 0x126acb470>
+[2020-04-10 23:50:08,325] 37 MODEL_NAME=<absl.flags._flag.Flag object at 0x126ab8cc0>
+[2020-04-10 23:50:08,325] 37 N_EPOCHS=<absl.flags._flag.Flag object at 0x126acb1d0>
+[2020-04-10 23:50:08,325] 37 N_FILTERS=<absl.flags._flag.Flag object at 0x126ab8e10>
+[2020-04-10 23:50:08,325] 37 N_GFCN=<absl.flags._flag.Flag object at 0x126ab8eb8>
+[2020-04-10 23:50:08,325] 37 RUN_FOLDER=<absl.flags._flag.Flag object at 0x126acb518>
+[2020-04-10 23:50:08,325] 37 SAVESTEP=<absl.flags._flag.Flag object at 0x126acb390>
+[2020-04-10 23:50:08,325] 37 START_EPOCH=<absl.flags._flag.Flag object at 0x126acb2e8>
+[2020-04-10 23:50:08,325] 37 SUB_DIR=<absl.flags._flag.Flag object at 0x126ab8b70>
+[2020-04-10 23:50:08,325] 37 WHOLESET_NAME=<absl.flags._flag.Flag object at 0x126ab8c50>
+[2020-04-10 23:50:08,325] 40 Loading data...
+[2020-04-10 23:51:08,558] 35 
+Parameters:
+[2020-04-10 23:51:08,558] 37 ALLOW_SOFT_PLACEMENT=<absl.flags._flag.BooleanFlag object at 0x11abec438>
+[2020-04-10 23:51:08,558] 37 BATCH_SIZE=<absl.flags._flag.Flag object at 0x11abdafd0>
+[2020-04-10 23:51:08,559] 37 DATA_DIR=<absl.flags._flag.Flag object at 0x1022590b8>
+[2020-04-10 23:51:08,559] 37 DATASET_NAME=<absl.flags._flag.Flag object at 0x11abdac50>
+[2020-04-10 23:51:08,559] 37 EMBEDDING_DIM=<absl.flags._flag.Flag object at 0x11abdadd8>
+[2020-04-10 23:51:08,559] 37 IF_RESTART=<absl.flags._flag.BooleanFlag object at 0x11abec278>
+[2020-04-10 23:51:08,559] 37 IS_TRAINABLE=<absl.flags._flag.BooleanFlag object at 0x11abec048>
+[2020-04-10 23:51:08,559] 37 LEARNING_RATE=<absl.flags._flag.Flag object at 0x11abec198>
+[2020-04-10 23:51:08,559] 37 LOG_DEVICE_PLACEMENT=<absl.flags._flag.BooleanFlag object at 0x11abec4e0>
+[2020-04-10 23:51:08,559] 37 MODEL_NAME=<absl.flags._flag.Flag object at 0x11abdad30>
+[2020-04-10 23:51:08,559] 37 N_EPOCHS=<absl.flags._flag.Flag object at 0x11abec240>
+[2020-04-10 23:51:08,559] 37 N_FILTERS=<absl.flags._flag.Flag object at 0x11abdae80>
+[2020-04-10 23:51:08,559] 37 N_GFCN=<absl.flags._flag.Flag object at 0x11abdaf28>
+[2020-04-10 23:51:08,560] 37 RUN_FOLDER=<absl.flags._flag.Flag object at 0x11abec588>
+[2020-04-10 23:51:08,560] 37 SAVESTEP=<absl.flags._flag.Flag object at 0x11abec400>
+[2020-04-10 23:51:08,560] 37 START_EPOCH=<absl.flags._flag.Flag object at 0x11abec358>
+[2020-04-10 23:51:08,560] 37 SUB_DIR=<absl.flags._flag.Flag object at 0x11abdabe0>
+[2020-04-10 23:51:08,560] 37 WHOLESET_NAME=<absl.flags._flag.Flag object at 0x11abdacc0>
+[2020-04-10 23:51:08,560] 40 Loading data...
+[2020-04-10 23:52:04,404] 35 
+Parameters:
+[2020-04-10 23:52:04,404] 37 ALLOW_SOFT_PLACEMENT=<absl.flags._flag.BooleanFlag object at 0x12190b438>
+[2020-04-10 23:52:04,404] 37 BATCH_SIZE=<absl.flags._flag.Flag object at 0x1218f9fd0>
+[2020-04-10 23:52:04,404] 37 DATA_DIR=<absl.flags._flag.Flag object at 0x108f750f0>
+[2020-04-10 23:52:04,404] 37 DATASET_NAME=<absl.flags._flag.Flag object at 0x1218f9c50>
+[2020-04-10 23:52:04,404] 37 EMBEDDING_DIM=<absl.flags._flag.Flag object at 0x1218f9dd8>
+[2020-04-10 23:52:04,404] 37 IF_RESTART=<absl.flags._flag.BooleanFlag object at 0x12190b278>
+[2020-04-10 23:52:04,404] 37 IS_TRAINABLE=<absl.flags._flag.BooleanFlag object at 0x12190b048>
+[2020-04-10 23:52:04,404] 37 LEARNING_RATE=<absl.flags._flag.Flag object at 0x12190b198>
+[2020-04-10 23:52:04,404] 37 LOG_DEVICE_PLACEMENT=<absl.flags._flag.BooleanFlag object at 0x12190b4e0>
+[2020-04-10 23:52:04,404] 37 MODEL_NAME=<absl.flags._flag.Flag object at 0x1218f9d30>
+[2020-04-10 23:52:04,404] 37 N_EPOCHS=<absl.flags._flag.Flag object at 0x12190b240>
+[2020-04-10 23:52:04,404] 37 N_FILTERS=<absl.flags._flag.Flag object at 0x1218f9e80>
+[2020-04-10 23:52:04,405] 37 N_GFCN=<absl.flags._flag.Flag object at 0x1218f9f28>
+[2020-04-10 23:52:04,405] 37 RUN_FOLDER=<absl.flags._flag.Flag object at 0x12190b588>
+[2020-04-10 23:52:04,405] 37 SAVESTEP=<absl.flags._flag.Flag object at 0x12190b400>
+[2020-04-10 23:52:04,405] 37 START_EPOCH=<absl.flags._flag.Flag object at 0x12190b358>
+[2020-04-10 23:52:04,405] 37 SUB_DIR=<absl.flags._flag.Flag object at 0x1218f9be0>
+[2020-04-10 23:52:04,405] 37 WHOLESET_NAME=<absl.flags._flag.Flag object at 0x1218f9cc0>
+[2020-04-10 23:52:04,405] 40 Loading data...
+[2020-04-10 23:52:28,847] 35 
+Parameters:
+[2020-04-10 23:52:28,848] 37 ALLOW_SOFT_PLACEMENT=<absl.flags._flag.BooleanFlag object at 0x1201523c8>
+[2020-04-10 23:52:28,848] 37 BATCH_SIZE=<absl.flags._flag.Flag object at 0x120140f60>
+[2020-04-10 23:52:28,848] 37 DATA_DIR=<absl.flags._flag.Flag object at 0x1077c00b8>
+[2020-04-10 23:52:28,848] 37 DATASET_NAME=<absl.flags._flag.Flag object at 0x120140be0>
+[2020-04-10 23:52:28,848] 37 EMBEDDING_DIM=<absl.flags._flag.Flag object at 0x120140d68>
+[2020-04-10 23:52:28,849] 37 IF_RESTART=<absl.flags._flag.BooleanFlag object at 0x120152208>
+[2020-04-10 23:52:28,849] 37 IS_TRAINABLE=<absl.flags._flag.BooleanFlag object at 0x120140f98>
+[2020-04-10 23:52:28,849] 37 LEARNING_RATE=<absl.flags._flag.Flag object at 0x120152128>
+[2020-04-10 23:52:28,849] 37 LOG_DEVICE_PLACEMENT=<absl.flags._flag.BooleanFlag object at 0x120152470>
+[2020-04-10 23:52:28,849] 37 MODEL_NAME=<absl.flags._flag.Flag object at 0x120140cc0>
+[2020-04-10 23:52:28,849] 37 N_EPOCHS=<absl.flags._flag.Flag object at 0x1201521d0>
+[2020-04-10 23:52:28,849] 37 N_FILTERS=<absl.flags._flag.Flag object at 0x120140e10>
+[2020-04-10 23:52:28,849] 37 N_GFCN=<absl.flags._flag.Flag object at 0x120140eb8>
+[2020-04-10 23:52:28,849] 37 RUN_FOLDER=<absl.flags._flag.Flag object at 0x120152518>
+[2020-04-10 23:52:28,849] 37 SAVESTEP=<absl.flags._flag.Flag object at 0x120152390>
+[2020-04-10 23:52:28,849] 37 START_EPOCH=<absl.flags._flag.Flag object at 0x1201522e8>
+[2020-04-10 23:52:28,849] 37 SUB_DIR=<absl.flags._flag.Flag object at 0x120140b70>
+[2020-04-10 23:52:28,849] 37 WHOLESET_NAME=<absl.flags._flag.Flag object at 0x120140c50>
+[2020-04-10 23:52:28,850] 40 Loading data...
+[2020-04-10 23:52:30,124] 57 Loading data... finished!
+[2020-04-10 23:52:35,330] 79 Writing to /Users/siddhantarora/Documents/SEM-10/col868/NaLP/runs/JF17K_version1_opt
+

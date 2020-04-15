@@ -6,6 +6,7 @@ import pickle
 from log import Logger
 from batching import *
 from model import NaLP
+import sys
 
 tf.flags.DEFINE_string("data_dir", "./data", "The data dir.")
 tf.flags.DEFINE_string("sub_dir", "WikiPeople", "The sub data dir.")
@@ -27,7 +28,7 @@ tf.flags.DEFINE_boolean("log_device_placement", False, "Log placement of ops on 
 tf.flags.DEFINE_string("run_folder", "./", "The dir to store models.")
 
 FLAGS = tf.flags.FLAGS
-FLAGS._parse_flags()
+FLAGS(sys.argv)  
 
 # The log file to store the parameters and the training details of each epoch
 logger = Logger('logs', 'run_'+FLAGS.model_name+'_'+str(FLAGS.embedding_dim)+'_'+str(FLAGS.n_filters)+'_'+str(FLAGS.n_gFCN)+'_'+str(FLAGS.batch_size)+'_'+str(FLAGS.learning_rate)).logger
