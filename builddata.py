@@ -13,8 +13,7 @@ tf.flags.DEFINE_string("bin_postfix", "", "The new_postfix for the output bin fi
 tf.flags.DEFINE_boolean("if_permutate", False, "If permutate for test filter.")
 FLAGS = tf.flags.FLAGS  
 FLAGS(sys.argv)  
-print(FLAGS.flag_values_dict())
-exit()
+#FLAGS.flag_values_dict()
 print("\nParameters:")
 for attr, value in sorted(FLAGS.__flags.items()):
 #for attr, value in sorted(FLAGS.flag_values_dict().items()):
