@@ -7,41 +7,43 @@ from log import Logger
 from batching import *
 from model import NaLP
 import sys
+import argparse
 
-tf.flags.DEFINE_string("data_dir", "./data", "The data dir.")
-tf.flags.DEFINE_string("sub_dir", "WikiPeople", "The sub data dir.")
-tf.flags.DEFINE_string("dataset_name", "WikiPeople", "The name of the dataset.")
-tf.flags.DEFINE_string("wholeset_name", "WikiPeople_permutate", "Name of the whole dataset for negative sampling or computing the filtered metrics.")
-tf.flags.DEFINE_string("model_name", 'WikiPeople', "")
-tf.flags.DEFINE_integer("embedding_dim", 100, "The embedding dimension.")
-tf.flags.DEFINE_integer("n_filters", 200, "The number of filters.")
-tf.flags.DEFINE_integer("n_gFCN", 1200, "The number of hidden units of fully-connected layer in g-FCN.")
-tf.flags.DEFINE_integer("batch_size", 128, "The batch size.")
-tf.flags.DEFINE_boolean("is_trainable", True, "")
-tf.flags.DEFINE_float("learning_rate", 0.00005, "The learning rate.")
-tf.flags.DEFINE_integer("n_epochs", 5000, "The number of training epochs.")
-tf.flags.DEFINE_boolean("if_restart", False, "")
-tf.flags.DEFINE_integer("start_epoch", 0, "Change this when restarting")
-tf.flags.DEFINE_integer("saveStep", 100, "Save the model every saveStep")
-tf.flags.DEFINE_boolean("allow_soft_placement", True, "Allow device soft device placement")
-tf.flags.DEFINE_boolean("log_device_placement", False, "Log placement of ops on devices")
-tf.flags.DEFINE_string("run_folder", "./", "The dir to store models.")
+parser = argparse.ArgumentParser()
+parser.add_argument("--data_dir", dest="data_dir", type=str, help="The data dir.", default='./data')
+parser.add_argument("--sub_dir", dest="sub_dir", type=str, help="The sub data dir.", default="WikiPeople")
+parser.add_argument("--dataset_name", dest="dataset_name", type=str, help="The name of the dataset.", default="WikiPeople")
+parser.add_argument("--wholeset_name", dest="wholeset_name", type=str, help="Name of the whole dataset for negative sampling or computing the filtered metrics.", default="WikiPeople_permutate")
+parser.add_argument("--model_name", dest="model_name", type=str, help="", default='WikiPeople')
+parser.add_argument("--embedding_dim", dest="embedding_dim", type=int, help="The embedding dimension.",  default=100)
+parser.add_argument("--n_filters", dest="n_filters", type=int, help="The number of filters.", default=200)
+parser.add_argument("--n_gFCN", dest="n_gFCN", type=int, help="The number of hidden units of fully-connected layer in g-FCN.", default=1200)
+parser.add_argument("--batch_size", dest="batch_size", type=int, help="The batch size.", default=128)
+parser.add_argument("--is_trainable", dest="is_trainable", type=bool, help="", default=True)
+parser.add_argument("--learning_rate", dest="learning_rate", type=float, help="The learning rate.", default=0.00005)
+parser.add_argument("--n_epochs", dest="n_epochs", type=int, help="The number of training epochs.", default=5000)
+parser.add_argument("--if_restart", dest="if_restart", type=bool, help="", default= False)
+parser.add_argument("--start_epoch", dest="start_epoch", type=int, help="Change this when restarting", default=0)
+parser.add_argument("--saveStep", dest="saveStep", type=int, help="Save the model every saveStep", default=100)
+parser.add_argument("--allow_soft_placement", dest="allow_soft_placement", type=bool, help="Allow device soft device placement", default=True)
+parser.add_argument("--log_device_placement", dest="log_device_placement", type=bool, help="Log placement of ops on devices", default=False)
+parser.add_argument("--run_folder", dest="run_folder", type=str, help="The dir to store models.", default="./")
 
-FLAGS = tf.flags.FLAGS
-FLAGS(sys.argv)  
+args = parser.parse_args() 
+
+print("\nParameters:")
+print(args) 
 
 # The log file to store the parameters and the training details of each epoch
-logger = Logger('logs', 'run_'+FLAGS.model_name+'_'+str(FLAGS.embedding_dim)+'_'+str(FLAGS.n_filters)+'_'+str(FLAGS.n_gFCN)+'_'+str(FLAGS.batch_size)+'_'+str(FLAGS.learning_rate)).logger
+logger = Logger('logs', 'run_'+args.model_name+'_'+str(args.embedding_dim)+'_'+str(args.n_filters)+'_'+str(args.n_gFCN)+'_'+str(args.batch_size)+'_'+str(args.learning_rate)).logger
 logger.info("\nParameters:")
-for attr, value in sorted(FLAGS.__flags.items()):
-    logger.info("{}={}".format(attr.upper(), value))
 
 # Load training data
 logger.info("Loading data...")
-afolder = FLAGS.data_dir + '/'
-if FLAGS.sub_dir != '':
-    afolder = FLAGS.data_dir + '/' + FLAGS.sub_dir + '/'
-with open(afolder + FLAGS.dataset_name + ".bin", 'rb') as fin:
+afolder = args.data_dir + '/'
+if args.sub_dir != '':
+    afolder = args.data_dir + '/' + args.sub_dir + '/'
+with open(afolder + args.dataset_name + ".bin", 'rb') as fin:
     data_info = pickle.load(fin)
 train = data_info["train_facts"]
 values_indexes = data_info['values_indexes']
@@ -51,31 +53,31 @@ value_array = np.array(list(values_indexes.values()))
 role_array = np.array(list(roles_indexes.values()))
 
 # Load the whole dataset for negative sampling in "batching.py"
-with open(afolder + FLAGS.wholeset_name + ".bin", 'rb') as fin:
+with open(afolder + args.wholeset_name + ".bin", 'rb') as fin:
     data_info1 = pickle.load(fin)
 whole_train = data_info1["train_facts"]
 logger.info("Loading data... finished!")
 
 with tf.Graph().as_default():
     tf.set_random_seed(1234)
-    session_conf = tf.ConfigProto(allow_soft_placement=FLAGS.allow_soft_placement, log_device_placement=FLAGS.log_device_placement)
+    session_conf = tf.ConfigProto(allow_soft_placement=args.allow_soft_placement, log_device_placement=args.log_device_placement)
     session_conf.gpu_options.allow_growth = True
     sess = tf.Session(config=session_conf)
     with sess.as_default():
         aNaLP = NaLP(
             n_values=len(values_indexes),
             n_roles=len(roles_indexes),
-            embedding_dim=FLAGS.embedding_dim,
-            n_filters=FLAGS.n_filters,
-            n_gFCN=FLAGS.n_gFCN,
-            batch_size=FLAGS.batch_size*2,
-            is_trainable=FLAGS.is_trainable)
-        optimizer = tf.train.AdamOptimizer(learning_rate=FLAGS.learning_rate)
+            embedding_dim=args.embedding_dim,
+            n_filters=args.n_filters,
+            n_gFCN=args.n_gFCN,
+            batch_size=args.batch_size*2,
+            is_trainable=args.is_trainable)
+        optimizer = tf.train.AdamOptimizer(learning_rate=args.learning_rate)
         grads_and_vars = optimizer.compute_gradients(aNaLP.loss)
         train_op = optimizer.apply_gradients(grads_and_vars)
         
         # Output directory for models and summaries
-        out_dir = os.path.abspath(os.path.join(FLAGS.run_folder, "runs", FLAGS.model_name))
+        out_dir = os.path.abspath(os.path.join(args.run_folder, "runs", args.model_name))
         logger.info("Writing to {}\n".format(out_dir))
 
         # Train Summaries
@@ -104,8 +106,8 @@ with tf.Graph().as_default():
             return loss
         
         # If restart, then load the model
-        if FLAGS.if_restart == True:
-            _file = checkpoint_prefix + "-" + str(FLAGS.start_epoch)
+        if args.if_restart == True:
+            _file = checkpoint_prefix + "-" + str(args.start_epoch)
             aNaLP.saver.restore(sess, _file)
 
         # Training
@@ -115,18 +117,18 @@ with tf.Graph().as_default():
             if ll == 0:
                 n_batches_per_epoch.append(0)
             else:
-                n_batches_per_epoch.append(int((ll - 1) / FLAGS.batch_size) + 1)
-        for epoch in range(FLAGS.start_epoch, FLAGS.n_epochs):
+                n_batches_per_epoch.append(int((ll - 1) / args.batch_size) + 1)
+        for epoch in range(args.start_epoch, args.n_epochs):
             train_loss = 0
             for i in range(len(train)):
                 for batch_num in range(n_batches_per_epoch[i]):
                     arity = i + 2  # 2-ary in index 0
-                    x_batch, y_batch = Batch_Loader(train[i], values_indexes, roles_indexes, role_val, FLAGS.batch_size, arity, whole_train[i])
+                    x_batch, y_batch = Batch_Loader(train[i], values_indexes, roles_indexes, role_val, args.batch_size, arity, whole_train[i])
                     tmp_loss = train_step(x_batch, y_batch, arity)
                     train_loss = train_loss + tmp_loss
                 
             logger.info("nepoch: "+str(epoch+1)+", trainloss: "+str(train_loss))
-            if (epoch+1) % FLAGS.saveStep == 0:
+            if (epoch+1) % args.saveStep == 0:
                 path = aNaLP.saver.save(sess, checkpoint_prefix, global_step=epoch+1)
                 logger.info("Saved model checkpoint to {}\n".format(path))
         train_summary_writer.close

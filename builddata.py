@@ -1,23 +1,22 @@
-import tensorflow as tf
+# import tensorflow as tf
 import numpy as np
 import pickle
 import time
 import sys
+import argparse
 
 ISOTIMEFORMAT='%Y-%m-%d %X'
-       
-tf.flags.DEFINE_string("data_dir", "./data", "The data dir.")
-tf.flags.DEFINE_string("sub_dir", "WikiPeople", "The sub data dir.")
-tf.flags.DEFINE_string("dataset_name", "WikiPeople", "The name of the dataset.")
-tf.flags.DEFINE_string("bin_postfix", "", "The new_postfix for the output bin file.")
-tf.flags.DEFINE_boolean("if_permutate", False, "If permutate for test filter.")
-FLAGS = tf.flags.FLAGS  
-FLAGS(sys.argv)  
-#FLAGS.flag_values_dict()
+parser = argparse.ArgumentParser()       
+parser.add_argument("--data_dir", dest='data_dir', type=str, help="The data dir.", default='./data')
+parser.add_argument("--sub_dir", dest='sub_dir', type=str, help="The sub data dir.", default="WikiPeople")
+parser.add_argument("--dataset_name", dest="dataset_name", type=str, help="The name of the dataset.", default="WikiPeople")
+parser.add_argument("--bin_postfix", dest="bin_postfix", type=str, help="The new_postfix for the output bin file.", default="")
+parser.add_argument("--if_permutate",dest="if_permutate", type=bool, help="If permutate for test filter.", default=False)
+args = parser.parse_args() 
+
 print("\nParameters:")
-for attr, value in sorted(FLAGS.__flags.items()):
-#for attr, value in sorted(FLAGS.flag_values_dict().items()):
-    print("{}={}".format(attr.upper(), value))
+print(args)
+
 
 def permutations(arr, position, end, res):
     """
@@ -106,7 +105,7 @@ def load_data_from_txt(filenames, values_indexes = None, roles_indexes = None, a
                         aline = aline + (role_ind,)
                         aline = aline + (val_ind,)
                         
-            if FLAGS.if_permutate == True:  # Permutate the elements in the fact for negative sampling or further computing the filtered metrics in the test process
+            if args.if_permutate == True:  # Permutate the elements in the fact for negative sampling or further computing the filtered metrics in the test process
                 if xx_dict['N'] in ary_permutation:
                     res = ary_permutation[xx_dict['N']]
                 else:
@@ -166,16 +165,16 @@ def build_data(folder='data/', dataset_name='WikiPeople'):
     data_info['test_facts'] = test_facts
     data_info['values_indexes'] = values_indexes
     data_info['roles_indexes'] = roles_indexes
-    if FLAGS.if_permutate == False:
+    if args.if_permutate == False:
         role_val = get_neg_candidate_set(folder, values_indexes, roles_indexes)
         data_info['role_val'] = role_val
-    with open(folder + dataset_name + FLAGS.bin_postfix + ".bin", 'wb') as f:
+    with open(folder + dataset_name + args.bin_postfix + ".bin", 'wb') as f:
         pickle.dump(data_info, f)
 
 if __name__ == '__main__':
     print(time.strftime(ISOTIMEFORMAT, time.localtime()))
-    afolder = FLAGS.data_dir + '/'
-    if FLAGS.sub_dir != '':
-        afolder = FLAGS.data_dir + '/' + FLAGS.sub_dir + '/'
-    build_data(folder=afolder, dataset_name=FLAGS.dataset_name)
+    afolder = args.data_dir + '/'
+    if args.sub_dir != '':
+        afolder = args.data_dir + '/' + args.sub_dir + '/'
+    build_data(folder=afolder, dataset_name=args.dataset_name)
     print(time.strftime(ISOTIMEFORMAT, time.localtime()))
